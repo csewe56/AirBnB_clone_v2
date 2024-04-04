@@ -1,21 +1,19 @@
 #!/usr/bin/python3
-""" This is a fabric scripts based on the file 1-pack_web_static.py
-    that distributes an archive to your web servers
-    using the function name do_deploy
+""" module doc
 """
-import os.path
+from fabric.api import task, local
 from datetime import datetime
-from fabric.api import local
 
 
+@task
 def do_pack():
-    ''' This makes an archive on web_static folder'''
-
-    time = datetime.now()
-    archive = 'web_static_' + time.strftime("%Y%m%d%H%M%S") + '.' + 'tgz'
-    local('mkdir -p versions')
-    create = local('tar -cvzf versions/{} web_static'.format(archive))
-    if create is not None:
-        return archive
-    else:
-        return None
+    """ method doc
+        sudo fab -f 1-pack_web_static.py do_pack
+    """
+    formatted_dt = datetime.now().strftime('%Y%m%d%H%M%S')
+    mkdir = "mkdir -p versions"
+    path = "versions/web_static_{}.tgz".format(formatted_dt)
+    print("Packing web_static to {}".format(path))
+    if local("{} && tar -cvzf {} web_static".format(mkdir, path)).succeeded:
+        return path
+    return None
