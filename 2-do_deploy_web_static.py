@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-# Fabfile to distribute an archive to a web servers, using the function do_deploy
-
 """ module doc
 """
 from fabric.api import task, local, env, put, run
