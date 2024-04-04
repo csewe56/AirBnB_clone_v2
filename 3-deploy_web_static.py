@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-# Fabfile to create and distribute an archive to a web servers,using the function deploy
+"""Doc for the fabric"""
+
 import os.path
 from datetime import datetime
 from fabric.api import env
